@@ -752,7 +752,15 @@ Der Minimal-Abstand eines Codes $C$ ist $\min{\{d(v,w)|v,w\in C, v \neq w \}}$
 
 Beweis:
 \begin{enumerate}
-\item HA
+\item "`$\Rightarrow$"' Sei $v$ ein Codewort und $w$ ein Wort mit $d(v,w) \leq k $. Wenn der Code 4-fehlererkennend ist, darf es demnach kein anderes Codewort $v'$ geben, welches einen Abstand $d(v,v') \leq k$ hat, da ansonsten $v'$ selbst kein Codewort mehr wäre, sondern ein Wort mit $k$ Fehlern. Daraus folgt, dass der Minimalabstand $d(v,v')$ des Codes mindestens $k+1$ ist.
+
+"`$\Leftarrow$"' Für eine Codewort $v$ sei $s(v) = \{w | d(v,w) \leq k\}$. Aus $d(v,v') \geq k+1$ (Für alle Codewörter $v,v'$ für die gilt: $v \neq v'$):
+\begin{itemize}
+\item $\{v\} \cap s (v') = \varnothing$
+\item $\{v'\} \cap s(v) = \varnothing$
+\end{itemize}
+(denn anonsten wäre der Abstand $\leq k$)\\
+Jedes fehlerhafte Wort $w \in s(v)$, dass sich in höchstens $k$ Stellen von $v$ unterscheidet, kann somit erkannt werden.
 \item ($\Rightarrow$) Seien $v$ ein Codewort und $w$ ein Wort mit $d(v,w) \leq k$. Wenn der Code $k$-fehlerkorrigierend ist, darf es nur ein Codewort $v$ mit $d(v,w) \leq k$ geben. Folglich muss $d(v',w) \geq k +1$ für alle Codewörter $v' \neq v$ gelten, woraus $d(v,v') \geq 2k +1$ folgt.\\
 Daraus folgt, dass der Minimalabstand des Codes mindestens $2k+1$ ist.
 
@@ -761,13 +769,43 @@ Daraus folgt, dass der Minimalabstand des Codes mindestens $2k+1$ ist.
 
 Beispiel: Der Minimalabstand des Parity-Check-Doe ist 2, da sich zwei Codewörter in mindestens $2$ Stellen unterscheiden. Folglich ist der Code 1-fehlererkennend und 0-fehlerkorrigierend.
 
+Naiver Ansatz zur Fehlerkorrektur: Nachricht mehrfach senden.\\
+Beispiel $0\rightarrow 000, 1 \rightarrow 111$\\
+Der Code $\{000,111\}$ hat Minimalabstand 3 und ist daher 1-fehlerkorrigierend.\\
+Nachteil: Platzverschwendung
 
+Effizienter sind lineare Codes. Diese verwenden Matrix-Vektor-Operationen.\\
+Beispiel: Mit $A=(\underbrace{1\dots 1}_{n})$ lässt sich der Parity-Check-Code beschreiben durch $\{ w \in \{0,1\}^n |Aw^T = 0\}$
 
+\subparagraph{Definition} Ein Code heißt linear, wenn es eine Matrix $A$ gibt, so dass sich der Code darstellen lässt durch $\{ w | Aw^T = 0 \}$.\\
+Folgerung:
 
+\subparagraph{Satz} Ein binärer linearer Code $C$ ist ein Vektorraum über $\mathbb{Z}_2 (+,\cdot)$.\\
+Beweis (Skizze):\\
+Abgeschlossenheit der Vektoraddition: Zu zeigen: $w_1,w_2 \in C \Rightarrow w_1 + w_2 \in C$.\\
+Aus $w_1,w_2 \in C$ folgt $A w_1^T = 0, A w_2^T = 0$ und daraus folgt $0= Aw_1^T + Aw_2^T =A(w_1 + w_2)^T$ und daraus folgt $w_1 + w_2 \in C$. Restliche Vektorraumaxiome folgen entsprechend.\\
+Da ein linearer Code ein Vektorraum ist, besitzt er eine Basis.
 
+\subparagraph{Definition} Sei $C$ ein linearer Code. Eine Matrix $G$, deren Zeilen eine Basis von $C$ bilden, heißt Generatormatrix.
 
+Beispiel: Sei $G= \begin{pmatrix} 1 & 0 & 0 & 1 \\ 0 & 1 & 0 & 1\\ 0 & 0 & 1 & 1 \end{pmatrix}$. Die Zeilen von $G$ sind linearer unabhängig und es gilt $(b_1 b_2 b_3 ) \cdot  \begin{pmatrix} 1 & 0 & 0 & 1 \\ 0 & 1 & 0 & 1\\ 0 & 0 & 1 & 1 \end{pmatrix} = (b_1 \; b_2 \; b_3 \; (b_1 + b_2 + b_3) )$
 
+Die Zeilen von $G$ bilden daher eine Basis für den Parity-Check-Code der Länge 4 und $G$ ist dessen Generatormatrix
 
+Für den Minimalabstand eines linearen Code gilt:
+
+\subparagraph{Satz} Sei $C$ ein linearer Code. Der Minimalabstand von $C$ ist $\min{\{d(c,0) | c \in C, c \neq 0\}}$.
+
+Beweis: Seien $v,w \in C$ mit $v \neq w$. Da $C$ ein Vektorraum ist, gilt $v-w \in C$. Ferner unterscheidet sich $v-w$ von $0$ an genau den Stellen, an denen sich $v,w$ unterscheiden. Daraus folgt $d(v,w) = d(v-w,0)$ und damit $\min{\{ d(v,w) | v,w \in C, v \neq w \}} = \min{\{ d(c,0) | c \in C, c \neq 0\}}$.
+
+Idee zur Konstruktion fehlerkorrigierender Codes: Mehrere Prüfsummen einfügen.
+
+Beispiel $G= \begin{pmatrix}
+1 & 0 & 0 & 1 & 1 & 0\\
+0 & 1 & 0 & 1 & 0 & 1\\
+0 & 0 & 1 & 0 & 1 & 1 \end{pmatrix}$.
+Der erzeugte Code ist $C=\{ bG | b \in \{0,1\}^3 \}$ und $(b_1 b_2 b_3) \cdot G = (\underbrace{b_1 \; b_2 \; b_3}_{\text{Nachrichtenbits}} \underbrace{(b_1+b_2) \; (b_1+b_3) \;  (b_2+b_3)}_{\text{Prüfbits}})$.\\
+Der erzeugte Code besteht aus 3 Nachrichtenbits und 3 Prüfbits. Der Minimalabstand ist 3, daher ist der Code 1-fehlerkorrigierend.
 
 
 
