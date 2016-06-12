@@ -100,7 +100,7 @@ Die Wirkung dieser Anweisung lässt sich beschreiben durch die Formel
 \[(x\geq 0 \Rightarrow y = x) \wedge (\neg (x\geq 0)\Rightarrow y=-x)\]
 
 \paragraph{Definition}
-Eine Formel F heißt Tantologie, wenn F unter jeder Belegung wahr ist. Mit dem Symbol T bezeichnen wir eine Tantologie.
+Eine Formel F heißt Tautologie, wenn F unter jeder Belegung wahr ist. Mit dem Symbol T bezeichnen wir eine Tautologie.
 Mit $\perp$ bezeichnen wir eine Formel die unter jeder Belegung falsch ist. (unerfüllbar)
 \paragraph{Definition}
 Wir schreiben F=G, wenn F,G unter jeder Belegung die gleichen Wahrheitswerte besitzen.
@@ -115,7 +115,7 @@ Wir schreiben F=G, wenn F,G unter jeder Belegung die gleichen Wahrheitswerte bes
 $F \Rightarrow G = \neg F \vee G = \neg \neg G \vee \neg F = \neg G \Rightarrow \neg F$
 
 \subparagraph{Definition}
-Wir schreiben $A\Rightarrow B$, wenn $A\rightarrow B$m eine Tantologie ist und $A \Leftrightarrow B$, wenn $A\leftrightarrow B$ eine Tantologie ist.
+Wir schreiben $A\Rightarrow B$, wenn $A\rightarrow B$m eine Tautologie ist und $A \Leftrightarrow B$, wenn $A\leftrightarrow B$ eine Tautologie ist.
 
 
 \paragraph{Beweistechniken}
@@ -140,7 +140,7 @@ Hilfssatz (o. Beweis): Wenn $a^2$ gerade ist, dann ist $a$ gerade.
 Beweis: Angenommen $\sqrt{2}$ ist rational. Dann gibt es $p,q \in \mathbb{Z}$ mit $\sqrt{2}=\frac{p}{q}$ Weiterhin können wir annehmen, dass $p,q$ teilerfremd sind. (Durch Kürzen immer möglich). Durch Quadrieren folgt $2q^2 = p^2$. Damit ist $p^2$ gerade und nach obigen Hilfssatz auch p. Daraus folgt, dass $p^2$ durch $4$ teilbar ist. Und damit auch $2q^2$. Daraus folgt, dass $q^2$ gerade ist. Nach Hilfssatz ist damit $q$ gerade. Damit sind $p,q$ nicht teilerfremd, Widerspruch.
 
 \subparagraph{Aufgabe}
-Zeigen Sie, dass $(\neg A \rightarrow \perp) \leftrightarrow A$ eine Tantologie ist.
+Zeigen Sie, dass $(\neg A \rightarrow \perp) \leftrightarrow A$ eine Tautologie ist.
 
 \subparagraph{Beweis durch Fallunterscheidung} Damit wird eine Aussage $A$ bewiesen, indem für eine Aussage $F$ (der Fall, nach dem unterschieden wird) gezeigt wird. $F \Rightarrow A$ sowie $\neg F \Rightarrow A$.
 
@@ -752,7 +752,7 @@ Der Minimal-Abstand eines Codes $C$ ist $\min{\{d(v,w)|v,w\in C, v \neq w \}}$
 
 Beweis:
 \begin{enumerate}
-\item "`$\Rightarrow$"' Sei $v$ ein Codewort und $w$ ein Wort mit $d(v,w) \leq k $. Wenn der Code 4-fehlererkennend ist, darf es demnach kein anderes Codewort $v'$ geben, welches einen Abstand $d(v,v') \leq k$ hat, da ansonsten $v'$ selbst kein Codewort mehr wäre, sondern ein Wort mit $k$ Fehlern. Daraus folgt, dass der Minimalabstand $d(v,v')$ des Codes mindestens $k+1$ ist.
+\item "`$\Rightarrow$"' Sei $v$ ein Codewort und $w$ ein Wort mit $d(v,w) \leq k $. Wenn der Code k-fehlererkennend ist, darf es demnach kein anderes Codewort $v'$ geben, welches einen Abstand $d(v,v') \leq k$ hat, da ansonsten $v'$ selbst kein Codewort mehr wäre, sondern ein Wort mit $k$ Fehlern. Daraus folgt, dass der Minimalabstand $d(v,v')$ des Codes mindestens $k+1$ ist.
 
 "`$\Leftarrow$"' Für eine Codewort $v$ sei $s(v) = \{w | d(v,w) \leq k\}$. Aus $d(v,v') \geq k+1$ (Für alle Codewörter $v,v'$ für die gilt: $v \neq v'$):
 \begin{itemize}
